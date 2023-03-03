@@ -4,8 +4,7 @@ stages:
       - job: plan_validate
         continueOnError: false
         steps:
-        - task: TerraformInstaller@0
-          displayName: install
+        - task: TerraformInstaller@1
           inputs:
             terraformVersion: 'latest'
         - task: TerraformTaskV4@4
@@ -29,8 +28,7 @@ stages:
       - job: Deploy_terraform
         continueOnError: false
         steps:
-        - task: TerraformInstaller@0
-          displayName: "install"
+        - task: TerraformInstaller@1
           inputs:
             terraformVersion: 'latest'
         - task: TerraformTaskV4@4
