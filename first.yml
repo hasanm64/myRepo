@@ -1,0 +1,52 @@
+stages:
+  - stage: validate
+    jobs:
+      - job: plan_validate
+        continueOnError: false
+        steps:
+        - task: TerraformInstaller@0
+          displayName: install
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTaskV4@4
+          displayName: init
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: 'Free Trial (9d3fc709-c416-40ea-a513-5bee0f878bd8)'
+            backendAzureRmResourceGroupName: 'RG1'
+            backendAzureRmStorageAccountName: 'azstrg53'
+            backendAzureRmContainerName: 'terra'
+            backendAzureRmKey: 'terraform.tfstate'
+        - task: TerraformTaskV4@4
+          displayName: "plan"
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            environmentServiceNameAzureRM: 'Free Trial (9d3fc709-c416-40ea-a513-5bee0f878bd8)'
+  - stage: Apply
+    jobs:
+      - job: Deploy_terraform
+        continueOnError: false
+        steps:
+        - task: TerraformInstaller@0
+          displayName: "install"
+          inputs:
+            terraformVersion: 'latest'
+        - task: TerraformTaskV4@4
+          displayName: "init"
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: 'Free Trial (9d3fc709-c416-40ea-a513-5bee0f878bd8)'
+            backendAzureRmResourceGroupName: 'RG1'
+            backendAzureRmStorageAccountName: 'azstrg53'
+            backendAzureRmContainerName: 'terra'
+            backendAzureRmKey: 'terraform.tfstate'
+        - task: TerraformTaskV4@4
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            environmentServiceNameAzureRM: 'Free Trial (9d3fc709-c416-40ea-a513-5bee0f878bd8)'
+        
+
