@@ -5,6 +5,7 @@ stages:
         continueOnError: false
         steps:
         - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+          displayName: "install terraform"
           inputs:
             terraformVersion: 'latest'
         - task: TerraformTaskV4@4
@@ -29,6 +30,7 @@ stages:
         continueOnError: false
         steps:
         - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+          displayName: "install terraform"
           inputs:
             terraformVersion: 'latest'
         - task: TerraformTaskV4@4
@@ -42,6 +44,7 @@ stages:
             backendAzureRmContainerName: 'terra'
             backendAzureRmKey: 'terraform.tfstate'
         - task: TerraformTaskV4@4
+          displayName: "terraform apply"
           inputs:
             provider: 'azurerm'
             command: 'apply'
