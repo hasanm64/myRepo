@@ -1,3 +1,4 @@
+pool: SidPC
 stages:
   - stage: validate
     jobs:
